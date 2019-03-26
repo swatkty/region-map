@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean name="propertiesService" class="egovframework.rte.fdl.property.impl.EgovPropertyServiceImpl" destroy-method="destroy">
+		<property name="properties">
+	        <map>
+	        	<entry key="pageUnit" value="10"/>
+	        	<entry key="pageSize" value="10"/>
+	        	<entry key="Globals.fileStorePath" value="/upload/"/>
+	        	<entry key="db.url" value="jdbc:mysql://127.0.0.1:3306/tykim?characterEncoding=utf8&amp;useUnicode=true"/>
+	        	<entry key="db.user" value="tykim"/>
+	        	<entry key="db.password" value="1234"/>
+	        	<entry key="db.tableName" value="open_region_map"/>
+	        	<entry key="file.path.underline" value="3"/>
+	        	<entry key="file.path" value="D:\\gdal\\"/>
+	        	<entry key="kakao.restapi" value="b9a77da028e3c665f20c3f95b7cb7aee"/>
+	        	<entry key="kakao.javascript" value="e67bcc3905abaf388d822fd806434b8b"/>
+	        	<!--  
+	        	<entry key="db.url" value="jdbc:mysql://192.168.0.52:3306/open_data?characterEncoding=utf8&amp;useUnicode=true"/>
+	        	<entry key="db.user" value="airvilUser"/>
+	        	<entry key="db.password" value="airvilUser!@#$"/>
+	        	<entry key="db.tableName" value="open_region_map"/>
+	        	<entry key="file.path.underline" value="6"/>
+	        	<entry key="file.path" value="/airvil/open_data/region_csv_201903/"/>
+	        	<entry key="kakao.restapi" value=""/>
+	        	<entry key="kakao.javascript" value=""/>
+	        	 -->
+	        </map>
+		</property>
+	</bean>
+	
+</beans>	

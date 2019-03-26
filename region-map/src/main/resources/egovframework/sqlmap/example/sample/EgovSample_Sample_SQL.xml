@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Sample">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="searchVO" type="egovframework.example.sample.service.SampleDefaultVO"/>
+	<typeAlias  alias="regionCodeVO" type="egovframework.example.sample.service.RegionCodeVO"/>
+
+	<resultMap id="sample" class="egovframework.example.sample.service.SampleVO">
+		<result property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="description" column="description"/>
+		<result property="useYn" column="use_yn"/>
+		<result property="regUser" column="reg_user"/>
+	</resultMap>
+	
+	<resultMap id="regionCode" class="egovframework.example.sample.service.RegionCodeVO">
+		<result property="regionCode" column="region_code"/>
+		<result property="regionCodeName" column="region_code_name"/>
+		<result property="regionCodeSname" column="region_code_sname"/>
+		<result property="regionTypeCode" column="region_type_code"/>
+		<result property="regionTypeCodeName" column="region_type_code_name"/>
+		<result property="regionCdNmCrc32" column="regionCdNmCrc32"/>
+		<result property="sidoName" column="sido_name"/>
+		<result property="gunguName" column="gungu_name"/>
+		<result property="dongName" column="dong_name"/>
+		<result property="useYn" column="use_yn"/>
+		<result property="memo" column="memo"/>
+		<result property="maxLat" column="max_lat"/>
+		<result property="minLat" column="min_lat"/>
+		<result property="maxLng" column="max_lng"/>
+		<result property="minLng" column="min_lng"/>
+		<result property="lat" column="lat"/>
+		<result property="lng" column="lng"/>
+		<result property="geometry" column="geometry"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="wkt" column="wkt"/>
+	</resultMap>
+
+	<select id="sampleDAO.selectConnectingConfirm" resultClass="string">
+		SELECT COUNT(*) FROM LSMD_CONT_LDREG
+	</select>
+	
+	<select id="sampleDAO.selectRegionCodeList" resultClass="egovMap" remapResults="true">
+		SELECT 
+			REGION_CODE,
+			REGION_CODE_NAME,
+			REGION_CODE_SNAME,
+			REGION_TYPE_CODE,
+			REGION_TYPE_CODE_NAME,
+			REGIONCDNMCRC32,
+			SIDO_NAME,
+			GUNGU_NAME,
+			DONG_NAME,
+			USE_YN,
+			MEMO,
+			MAX_LAT,
+			MIN_LAT,
+			MAX_LNG,
+			MIN_LNG,
+			LAT,
+			LNG,
+			GEOMETRY,
+			date_format(reg_date, '%Y-%m-%d') REG_DATE,
+			date_format(modify_date, '%Y-%m-%d') MODIFY_DATE,
+			WKT
+		FROM REGION_CODE_20190301 
+		WHERE LAT = 0 AND LNG = 0;
+	</select>
+	
+	<update id="sampleDAO.updateCenterXY" parameterClass="regionCodeVO">
+	<![CDATA[
+		UPDATE REGION_CODE_20190301 
+			SET  LAT = #lat# 
+				, LNG = #lng# 
+				, MODIFY_DATE = NOW() 
+		WHERE REGION_CODE = #regionCode# 
+	]]>
+	</update>
+	
+</sqlMap>
